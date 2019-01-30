@@ -56,6 +56,11 @@ exports.logEvent = function (name, params, success, error) {
   exec(success, error, "FirebasePlugin", "logEvent", [name, params]);
 };
 
+
+exports.addCustomLogs = function (message, success, error) {
+  exec(success, error, "FirebasePlugin", "addCustomLogs", [message])
+}
+
 exports.logError = function (message, success, error) {
   exec(success, error, "FirebasePlugin", "logError", [message]);
 };

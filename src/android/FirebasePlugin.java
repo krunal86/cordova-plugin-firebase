@@ -128,6 +128,9 @@ public class FirebasePlugin extends CordovaPlugin {
         } else if (action.equals("logEvent")) {
             this.logEvent(callbackContext, args.getString(0), args.getJSONObject(1));
             return true;
+        } else if (action.equals("addCustomLogs")) {
+            this.addCustomLogs(callbackContext, args.getString(0));
+            return true;
         } else if (action.equals("logError")) {
             this.logError(callbackContext, args.getString(0));
             return true;
@@ -484,6 +487,20 @@ public class FirebasePlugin extends CordovaPlugin {
         });
     }
 
+    private addCustomLogs(final CallbackContext callbackContext, final String message) {
+      cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    Crashlytics.log(message);
+                    callbackContext.success();
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                    callbackContext.error(e.getMessage());
+                }
+            }
+        });  
+    }
+    
     private void logError(final CallbackContext callbackContext, final String message) throws JSONException {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
