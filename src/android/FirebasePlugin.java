@@ -487,7 +487,7 @@ public class FirebasePlugin extends CordovaPlugin {
         });
     }
 
-    private addCustomLogs(final CallbackContext callbackContext, final String message) {
+    private void addCustomLogs(final CallbackContext callbackContext, final String message) {
       cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
